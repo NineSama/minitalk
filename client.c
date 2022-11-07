@@ -6,7 +6,7 @@
 /*   By: mfroissa <mfroissa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:26:16 by mfroissa          #+#    #+#             */
-/*   Updated: 2022/10/30 13:19:25 by mfroissa         ###   ########.fr       */
+/*   Updated: 2022/11/07 11:55:56 by mfroissa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,15 @@ void	answer(int signum, siginfo_t *siginfo, void *context)
 	static int	i;
 
 	(void)context;
-	if (signum == SIGUSR2)
+	if (signum == SIGUSR1)
 	{
-		printf("yo");
-		if (signum == 10)
-			write(1, "Message sent", 12);
-		if (signum == 12)
-			write(1, "Fail", 4);
+		write(1, "Message sent", 12);
 		exit(0);
 	}
 	if (bit_index == 0 && i == 0)
 		bit_index = 1;
-	message(siginfo->si_pid, &bit_index, &i);
+	if (signum == SIGUSR2)
+		message(siginfo->si_pid, &bit_index, &i);
 }
 
 int	main(int ac, char **av)

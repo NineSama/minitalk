@@ -6,7 +6,7 @@
 /*   By: mfroissa <mfroissa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:45:53 by mfroissa          #+#    #+#             */
-/*   Updated: 2022/10/30 08:58:24 by mfroissa         ###   ########.fr       */
+/*   Updated: 2022/11/07 11:57:20 by mfroissa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 /* server.c */
 int		get_char(char *str);
-void	push_term(char bit);
+void	push_term(char bit, int pid);
 void	get_signal(int signum, siginfo_t *siginfo, void *context);
 
 /* client.c */

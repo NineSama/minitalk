@@ -6,7 +6,7 @@
 /*   By: mfroissa <mfroissa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:09:08 by mfroissa          #+#    #+#             */
-/*   Updated: 2022/10/30 10:09:07 by mfroissa         ###   ########.fr       */
+/*   Updated: 2022/11/07 11:57:47 by mfroissa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	get_char(char *str)
 	return (val);
 }
 
-void	push_term(char bit)
+void	push_term(char bit, int pid)
 {
 	g_bin.tab[g_bin.bit_index] = bit;
 	g_bin.bit_index++;
@@ -46,17 +46,22 @@ void	push_term(char bit)
 		g_bin.tab[8] = '\0';
 		ft_putchar(get_char(g_bin.tab));
 		g_bin.bit_index = 0;
+		if (get_char(g_bin.tab) == '\0')
+			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSR2);
 	}
+	else
+		kill(pid, SIGUSR2);
 }
 
 void	get_signal(int signum, siginfo_t *siginfo, void *context)
 {
 	(void)context;
 	if (signum == 10)
-		push_term('0');
+		push_term('0', siginfo->si_pid);
 	if (signum == 12)
-		push_term('1');
-	kill(siginfo->si_pid, SIGUSR1);
+		push_term('1', siginfo->si_pid);
 }
 
 int	main(int ac, char **av)
